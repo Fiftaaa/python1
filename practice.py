@@ -81,39 +81,101 @@ class Project:
     def update_budget(self, amount):
         self.budget += amount
 
+#
+#
+# project = Project(name='Ігрушка',
+#                   budget=10_000,
+#                   tasks=['Знайти інвесторів',
+#                          'Придумати загальну ідею'])
+#
+# project.display_info()
+#
+# project.add_task('Вибрати ПЗ для гри')
+#
+# project.display_info()
+#
+# project.divide_task('Організувати бенкет',
+#                     ['витратити бюджет']
+#                     )
+#
+# project.divide_task('Придумати загальну ідею',
+#                     ['Обрати між 2D та 3D',
+#                      'Придумати сюжет',
+#                      'Прописати персонажів']
+#                     )
+#
+# project.display_info()
+#
+# project.do_task('Придумати сюжет', 6, 1000)
+# project.do_task('Обрати між 2D та 3D', 3, 200)
+# project.do_task('Прописати персонажів', 15, 6000)
+#
+# project.update_budget(2500)
+#
+# project.do_task('Знайти інвесторів', 10, 3000)
+# project.do_task('Вибрати ПЗ для гри', 5, 1800)
+#
+# project.display_info()
+#
+
+# Створіть клас Телефон з атрибутами:
+#  максимальний обсяг пам’яті
+# Практичне завдання
+#  зайнята пам’ять
+#  чи включений(за замовчуванням False)
+#  встановлені додатки у вигляді словника, де ключ –
+# назва додатку, значення – обсяг пам’яті
+# Додайте методи:
+#  вивести інформацію про використання пам’яті
+#  видалити додаток
+#  встановити новий додаток, якщо пам’яті достатньо
+#  оновити додаток(нова версія може займати іншу
+# кількість пам’яті)
+#  запустити додаток, якщо він є і якщо телефон
+# вкючений
+#  включити телефон
+#  виключити телефон
+
+class Phone:
+    def __init__(self, max_memory, apps):
+        self.max_memory = max_memory
+        self.is_on = False
+        self.apps = apps
+
+        self.used_memory = 0 #рахуємо пам'ять
+        for app_name in self.apps:
+            self.used_memory += self.apps[app_name]
 
 
-project = Project(name='Ігрушка',
-                  budget=10_000,
-                  tasks=['Знайти інвесторів',
-                         'Придумати загальну ідею'])
+    def display_info(self):
+        print(f"Використана пам'ть {self.used_memory}/{self.max_memory}ГБ")
+        print(f"Встановлені додатки ")
+        for app_name in self.apps:
+            print(f"Встановлений додаток {app_name} - {self.apps[app_name]} ГБ")
+        print()
+        print()
 
-project.display_info()
+    def delete_app(self, app_name):
+        if app_name not in self.apps:
+            print ("Додаток не встановлено")
+            return
 
-project.add_task('Вибрати ПЗ для гри')
+        app_memory = self.apps.pop(app_name)
+        self.used_memory -= app_memory
 
-project.display_info()
+    def turn_on(self):
+        self.is_on = True
 
-project.divide_task('Організувати бенкет',
-                    ['витратити бюджет']
-                    )
+    def turn_off(self):
+        self.is_on = False
 
-project.divide_task('Придумати загальну ідею',
-                    ['Обрати між 2D та 3D',
-                     'Придумати сюжет',
-                     'Прописати персонажів']
-                    )
+phone = Phone(128,
+              {"Google": 30,
+               "YouTube": 20,
+               "Telegram": 5})
 
-project.display_info()
+phone.display_info()
 
-project.do_task('Придумати сюжет', 6, 1000)
-project.do_task('Обрати між 2D та 3D', 3, 200)
-project.do_task('Прописати персонажів', 15, 6000)
+phone.delete_app('YouTube')
 
-project.update_budget(2500)
-
-project.do_task('Знайти інвесторів', 10, 3000)
-project.do_task('Вибрати ПЗ для гри', 5, 1800)
-
-project.display_info()
-
+phone.display_info()
