@@ -136,6 +136,7 @@ class Project:
 #  включити телефон
 #  виключити телефон
 
+
 class Phone:
     def __init__(self, max_memory, apps):
         self.max_memory = max_memory
